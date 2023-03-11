@@ -1,6 +1,6 @@
 <?php
 
-namespace SPC\DataObject;
+namespace App\SPC\DataObject;
 
 interface IDataObject
 {
