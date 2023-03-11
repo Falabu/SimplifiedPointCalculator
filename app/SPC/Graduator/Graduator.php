@@ -7,6 +7,7 @@ use SPC\Graduator\Validator\IValidatorsFactory;
 
 class Graduator implements IGraduator
 {
+
     public function __construct(array $pointCalculators, IValidatorsFactory $validatorFactory)
     {
     }

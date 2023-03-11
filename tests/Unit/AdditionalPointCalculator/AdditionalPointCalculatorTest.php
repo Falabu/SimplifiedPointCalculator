@@ -7,7 +7,7 @@ use App\SPC\Graduator\AdditionalPointCalculators\IAdditionalPointCalculator;
 use App\SPC\Graduator\AdditionalPointCalculators\LanguagePointCalculator;
 use App\SPC\Graduator\DataObject\LanguageResult;
 use App\SPC\Graduator\Enum\AdditionalPointCategory;
-use App\SPC\Graduator\Enum\LanguageExamPoint;
+use App\SPC\Graduator\GraduatorValue;
 use PHPUnit\Framework\TestCase;
 
 class AdditionalPointCalculatorTest extends TestCase
@@ -39,7 +39,7 @@ class AdditionalPointCalculatorTest extends TestCase
         $calculator = new LanguagePointCalculator();
 
         $points = $calculator->getPoints($items);
-        $this->assertEquals(LanguageExamPoint::C1->value, $points);
+        $this->assertEquals(GraduatorValue::C1_POINT, $points);
     }
 
     public function testLanguageCalculatorForMoreLanguage()

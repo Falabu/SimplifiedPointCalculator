@@ -3,8 +3,8 @@
 namespace App\SPC\Graduator\AdditionalPointCalculators;
 
 use App\SPC\Graduator\DataObject\LanguageResult;
-use App\SPC\Graduator\Enum\LanguageExamPoint;
 use App\SPC\Graduator\Enum\LanguageLevel;
+use App\SPC\Graduator\GraduatorValue;
 use PHPUnit\Logging\Exception;
 
 class LanguagePointCalculator implements IAdditionalPointCalculator
@@ -15,22 +15,22 @@ class LanguagePointCalculator implements IAdditionalPointCalculator
      */
     public function getPoints(array $additionalPoints): int
     {
-        $languagesToWeight = [];
+        $examToWeight = [];
         foreach ($additionalPoints as $additionalPoint) {
-            if (!isset($languagesToWeight[$additionalPoint->nyelv])) {
-                $languagesToWeight[$additionalPoint->nyelv] = 0;
+            if (!isset($examToWeight[$additionalPoint->nyelv])) {
+                $examToWeight[$additionalPoint->nyelv] = 0;
             }
 
             $currentWeight = $this->getLevelWeight($additionalPoint->tipus);
-            $previousWeight = $languagesToWeight[$additionalPoint->nyelv];
+            $previousWeight = $examToWeight[$additionalPoint->nyelv];
             if ($previousWeight > $currentWeight) {
                 continue;
             }
 
-            $languagesToWeight[$additionalPoint->nyelv] = $additionalPoint->tipus;
+            $examToWeight[$additionalPoint->nyelv] = $additionalPoint->tipus;
         }
 
-        return array_reduce($languagesToWeight,
+        return array_reduce($examToWeight,
             fn(int $sum, LanguageLevel $level) => $sum + $this->getLevelPoint($level), 0);
     }
 
@@ -50,8 +50,8 @@ class LanguagePointCalculator implements IAdditionalPointCalculator
     private function getLevelPoint(LanguageLevel $level): int
     {
         return match ($level) {
-            LanguageLevel::B2 => LanguageExamPoint::B2->value,
-            LanguageLevel::C1 => LanguageExamPoint::C1->value,
+            LanguageLevel::B2 => GraduatorValue::B2_POINT,
+            LanguageLevel::C1 => GraduatorValue::C1_POINT,
             default => 0
         };
     }

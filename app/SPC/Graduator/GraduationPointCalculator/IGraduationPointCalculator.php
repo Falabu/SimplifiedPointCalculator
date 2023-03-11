@@ -1,6 +1,6 @@
 <?php
 
-namespace App\SPC\Graduator\PointCalculator;
+namespace App\SPC\Graduator\GraduationPointCalculator;
 
 use App\SPC\Graduator\DataObject\ClassResult;
 
