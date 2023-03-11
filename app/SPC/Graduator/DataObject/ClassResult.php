@@ -3,10 +3,11 @@
 namespace App\SPC\Graduator\DataObject;
 
 use App\SPC\DataObject\DataObject;
+use App\SPC\Graduator\Enum\ClassLevel;
 
 class ClassResult extends DataObject
 {
     public string $nev;
-    public string $tipus;
+    public ClassLevel $tipus;
     public string $eredmeny;
 }

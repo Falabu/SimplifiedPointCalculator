@@ -5,6 +5,9 @@ namespace Tests\Unit\GraduationParser;
 use App\SPC\GraduationParser\ArrayGraduationParser;
 use App\SPC\Graduator\DataObject\Graduation;
 use App\SPC\Graduator\DataObject\Major;
+use App\SPC\Graduator\Enum\AdditionalPointCategory;
+use App\SPC\Graduator\Enum\ClassLevel;
+use App\SPC\Graduator\Enum\LanguageLevel;
 use PHPUnit\Framework\TestCase;
 
 class GraduationParserTest extends TestCase
@@ -30,16 +33,20 @@ class GraduationParserTest extends TestCase
 
             foreach ($graduation->erettsegiEredmenyek as $index2 => $eredmeny) {
                 $currentEredmeny = $currentTestData['erettsegi-eredmenyek'][$index2];
+                $eredmenyTipusEnum = ClassLevel::tryFrom($currentEredmeny['tipus']);
                 $this->assertEquals($currentEredmeny['nev'], $eredmeny->nev);
                 $this->assertEquals($currentEredmeny['eredmeny'], $eredmeny->eredmeny);
-                $this->assertEquals($currentEredmeny['tipus'], $eredmeny->tipus);
+                $this->assertEquals($eredmenyTipusEnum, $eredmeny->tipus);
             }
 
             foreach ($graduation->tobbletpontok as $index3 => $tobbletpont) {
                 $currentTobbletPont = $currentTestData['tobbletpontok'][$index3];
-                $this->assertEquals($currentTobbletPont['kategoria'], $tobbletpont->kategoria);
+                $kategoriaEnum = AdditionalPointCategory::tryFrom($currentTobbletPont['kategoria']);
+                $nyelvTipusEnum = LanguageLevel::tryFrom($currentTobbletPont['tipus']);
+
+                $this->assertEquals($kategoriaEnum, $tobbletpont->kategoria);
                 $this->assertEquals($currentTobbletPont['nyelv'], $tobbletpont->nyelv);
-                $this->assertEquals($currentTobbletPont['tipus'], $tobbletpont->tipus);
+                $this->assertEquals($nyelvTipusEnum, $tobbletpont->tipus);
             }
         };
     }

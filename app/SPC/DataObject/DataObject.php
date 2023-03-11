@@ -4,6 +4,7 @@ namespace App\SPC\DataObject;
 
 use App\SPC\DataObject\Attribute\ArrayOf;
 use App\SPC\DataObject\Attribute\AttributeResolver;
+use BackedEnum;
 use ReflectionClass;
 use ReflectionIntersectionType;
 use ReflectionNamedType;
@@ -54,7 +55,7 @@ class DataObject
                 $value = $this->$property->toArray();
             }
 
-            if ($this->$property instanceof \BackedEnum) {
+            if ($this->$property instanceof BackedEnum) {
                 $value = $this->$property->value;
             }
 
@@ -82,6 +83,12 @@ class DataObject
             $propertyType = self::getPropertyType($dataObject, $property)?->getName();
             if (is_subclass_of($propertyType, DataObject::class) && is_array($value)) {
                 $dataObject->$property = $propertyType::fromArray($value);
+
+                continue;
+            }
+
+            if (is_subclass_of($propertyType, BackedEnum::class)) {
+                $dataObject->$property = $propertyType::tryFrom($value);
 
                 continue;
             }
