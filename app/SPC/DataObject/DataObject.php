@@ -12,6 +12,8 @@ use ReflectionUnionType;
 
 /**
  * This is my older implementation of DTO it's out of scope from this assigment,
+ * This is a stripped version of it because the original have a string casing check feature,
+ * but that is dependent on Laravel
  * I really like to use DTO-s instead of simple array
  * I copied it from my other project
  */
@@ -71,6 +73,8 @@ class DataObject
         $dataObject = new static();
 
         foreach ($values as $property => $value) {
+            //Added this line only for sample data, originally I used Laravel string helper here
+            $property = lcfirst(str_replace('-', '', ucwords($property, '-')));
             if (!property_exists($dataObject, $property)) {
                 continue;
             }
