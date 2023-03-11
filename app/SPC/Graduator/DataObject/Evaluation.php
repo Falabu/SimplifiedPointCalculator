@@ -1,8 +1,8 @@
 <?php
 
-namespace SPC\Graduator\DataObject;
+namespace App\SPC\Graduator\DataObject;
 
-use SPC\DataObject\DataObject;
+use App\SPC\DataObject\DataObject;
 
 class Evaluation extends DataObject
 {

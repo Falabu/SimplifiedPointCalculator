@@ -1,6 +1,6 @@
 <?php
 
-namespace SPC\GraduationParser;
+namespace App\SPC\GraduationParser;
 
 use Generator;
 use SPC\Graduator\DataObject\Graduation;
