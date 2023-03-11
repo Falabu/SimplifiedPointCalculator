@@ -3,6 +3,7 @@
 namespace Tests\Unit\DataObject;
 
 use App\SPC\DataObject\DataObject;
+use App\SPC\Graduator\Enum\ClassLevel;
 use PHPUnit\Framework\TestCase;
 
 class DataObjectTest extends TestCase
@@ -76,4 +77,14 @@ class DataObjectTest extends TestCase
         $this->assertEquals($animal2, $testObject->manyB[1]->animal);
         $this->assertEquals($weight2, $testObject->manyB[1]->weight);
     }
+
+    public function testCanCreateDataObjectWithEnum()
+    {
+        $testObject = TestObjectC::fromArray([
+            'level' => 'közép'
+        ]);
+
+        $this->assertEquals(ClassLevel::KOZEP, $testObject->level);
+    }
+
 }

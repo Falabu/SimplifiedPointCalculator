@@ -2,15 +2,12 @@
 
 namespace SPC\Graduator;
 
-use SPC\GraduationParser\IGraduationsParser;
-use SPC\Graduator\DataObject\Evaluation;
-use SPC\Graduator\PointCalculator\IPointCalculator;
 use SPC\Graduator\Validator\IValidatorsFactory;
 
 interface IGraduator
 {
     /**
-     * @param array<IPointCalculator> $pointCalculators
+     * @param array<IGraduationPointCalculator> $pointCalculators
      * @param IValidatorsFactory $validatorFactory
      */
     public function __construct(array $pointCalculators, IValidatorsFactory $validatorFactory);
