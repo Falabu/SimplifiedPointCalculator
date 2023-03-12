@@ -4,6 +4,7 @@ namespace Tests\Unit\Validator;
 
 use App\SPC\Graduator\DataObject\ClassResult;
 use App\SPC\Graduator\Enum\ClassLevel;
+use App\SPC\Graduator\MajorSetting\MajorSetting;
 use App\SPC\Graduator\Validator\HaveRequiredChosenClass;
 use App\SPC\Graduator\Validator\HaveRequiredClassValidator;
 use App\SPC\Graduator\Validator\IValidator;
@@ -15,7 +16,7 @@ class ValidatorFactoryTest extends TestCase
 {
     public function testThatFactoryGeneratesValidators()
     {
-        $validatorFactory = new ValidatorsFactory();
+        $validatorFactory = new ValidatorsFactory(new MajorSetting());
 
         $validators = $validatorFactory->create('Programtervező informatikus');
 
