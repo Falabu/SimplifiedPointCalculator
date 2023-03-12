@@ -18,7 +18,7 @@ class LanguagePointCalculator implements IAdditionalPointCalculator
         $examToWeight = [];
         foreach ($additionalPoints as $additionalPoint) {
             if (!isset($examToWeight[$additionalPoint->nyelv])) {
-                $examToWeight[$additionalPoint->nyelv] = 0;
+                $examToWeight[$additionalPoint->nyelv] = -1;
             }
 
             $currentWeight = $this->getLevelWeight($additionalPoint->tipus);
