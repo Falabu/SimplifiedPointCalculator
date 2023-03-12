@@ -3,17 +3,18 @@
 namespace App\SPC\GraduationParser;
 
 use App\SPC\Graduator\DataObject\Graduation;
+use App\SPC\Graduator\TestData;
 use Generator;
 
 class ArrayGraduationParser implements IGraduationsParser
 {
     /**
-     * @return Generator|array<Graduation>
+     * @return Generator
      */
-    public function parse(array $args): Generator
+    public function parse(): Generator
     {
-        foreach ($args as $arg) {
-            yield Graduation::fromArray($arg);
+        foreach (TestData::$graduations as $graduation) {
+            yield Graduation::fromArray($graduation);
         }
     }
 }

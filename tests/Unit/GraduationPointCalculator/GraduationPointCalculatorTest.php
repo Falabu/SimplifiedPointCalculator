@@ -12,18 +12,13 @@ class GraduationPointCalculatorTest extends TestCase
     public function testGraduationCalculatorWithoutAdvancedExam()
     {
         $classes = Classes::fromArray([
-            'required' => 'informatika',
-            'chosen' => ['angol nyelv', 'történelem']
+            'required' => 'matematika',
+            'chosen' => ['biológia', 'fizika', 'informatika', 'kémia']
         ]);
 
         $items = [
             ClassResult::fromArray([
-                'nev' => 'informatika',
-                'tipus' => 'közép',
-                'eredmeny' => '60%',
-            ]),
-            ClassResult::fromArray([
-                'nev' => 'angol nyelv',
+                'nev' => 'magyar nyelv és irodalom',
                 'tipus' => 'közép',
                 'eredmeny' => '70%',
             ]),
@@ -33,16 +28,26 @@ class GraduationPointCalculatorTest extends TestCase
                 'eredmeny' => '80%',
             ]),
             ClassResult::fromArray([
-                'nev' => 'orosz',
+                'nev' => 'matematika',
+                'tipus' => 'emelt',
+                'eredmeny' => '90%',
+            ]),
+            ClassResult::fromArray([
+                'nev' => 'angol nyelv',
                 'tipus' => 'közép',
-                'eredmeny' => '50%',
+                'eredmeny' => '94%',
+            ]),
+            ClassResult::fromArray([
+                'nev' => 'informatika',
+                'tipus' => 'közép',
+                'eredmeny' => '95%',
             ]),
         ];
 
         $graduationCalc = new GraduationPointCalculator();
 
-        $points = $graduationCalc->getPoints($items, $classes);
-        $this->assertEquals(280, $points->base);
+        $points = $graduationCalc->get($items, $classes);
+        $this->assertEquals(370, $points->base);
     }
 
     public function testGraduationCalculatorWithAdvancedExam()
@@ -76,7 +81,7 @@ class GraduationPointCalculatorTest extends TestCase
         ];
         $graduationCalc = new GraduationPointCalculator();
 
-        $points = $graduationCalc->getPoints($items, $classes);
+        $points = $graduationCalc->get($items, $classes);
         $this->assertEquals(360, $points->base);
         $this->assertEquals(50, $points->additional);
     }

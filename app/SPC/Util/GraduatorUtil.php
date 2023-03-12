@@ -17,7 +17,7 @@ class GraduatorUtil
         if (!isset($matches[0])) {
             throw new Exception("Can't parse percentage");
         }
-        
-        return filter_var($matches[0], FILTER_VALIDATE_INT);
+
+        return (int)$matches[0];
     }
 }

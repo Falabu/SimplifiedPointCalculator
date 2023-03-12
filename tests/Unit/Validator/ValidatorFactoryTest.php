@@ -5,6 +5,7 @@ namespace Tests\Unit\Validator;
 use App\SPC\Graduator\DataObject\ClassResult;
 use App\SPC\Graduator\Enum\ClassLevel;
 use App\SPC\Graduator\MajorSetting\MajorSetting;
+use App\SPC\Graduator\Validator\HaveAllRequiredClass;
 use App\SPC\Graduator\Validator\HaveRequiredChosenClass;
 use App\SPC\Graduator\Validator\HaveRequiredClassValidator;
 use App\SPC\Graduator\Validator\IValidator;
@@ -20,7 +21,7 @@ class ValidatorFactoryTest extends TestCase
 
         $validators = $validatorFactory->create('Programtervező informatikus');
 
-        $this->assertCount(3, $validators);
+        $this->assertCount(4, $validators);
         $this->assertIsArray($validators);
 
         foreach ($validators as $validator) {
@@ -234,5 +235,31 @@ class ValidatorFactoryTest extends TestCase
         $validated = $validator->validate($items);
 
         $this->assertEquals(false, $validated);
+    }
+
+    public function testHaveAllRequiredClassesValidatorValid()
+    {
+        $items = [
+            ClassResult::fromArray([
+                'nev' => 'informatika',
+                'tipus' => 'közép',
+                'eredmeny' => '10%',
+            ]),
+            ClassResult::fromArray([
+                'nev' => 'angol nyelv',
+                'tipus' => 'közép',
+                'eredmeny' => '70%',
+            ]),
+            ClassResult::fromArray([
+                'nev' => 'történelem',
+                'tipus' => 'közép',
+                'eredmeny' => '80%',
+            ]),
+        ];
+
+        $validator = new HaveAllRequiredClass(['történelem', 'informatika']);
+        $validated = $validator->validate($items);
+
+        $this->assertEquals(true, $validated);
     }
 }

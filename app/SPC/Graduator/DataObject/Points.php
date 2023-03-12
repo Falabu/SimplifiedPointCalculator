@@ -11,9 +11,15 @@ class Points extends DataObject
 
     public function add(Points $point): Points
     {
-        return Points::fromArray([
-            'additional' => $this->additional + $point->additional,
-            'base' => $this->base + $point->base
-        ]);
+        $points = new Points();
+        $points->additional = $this->additional + $point->additional;
+        $points->base = $this->base + $point->base;
+
+        return $points;
+    }
+
+    public function total(): int
+    {
+        return $this->base + $this->additional;
     }
 }

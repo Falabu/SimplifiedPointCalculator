@@ -18,7 +18,7 @@ class GraduationPointCalculator implements IGraduationPointCalculator
      * @return Points
      * @throws Exception
      */
-    public function getPoints(array $classResults, Classes $classes): Points
+    public function get(array $classResults, Classes $classes): Points
     {
         $points = new Points();
         $chosenClassPoint = 0;
