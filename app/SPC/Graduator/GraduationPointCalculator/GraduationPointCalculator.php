@@ -2,6 +2,7 @@
 
 namespace App\SPC\Graduator\GraduationPointCalculator;
 
+use App\SPC\Graduator\DataObject\Points;
 use App\SPC\Graduator\Enum\ClassLevel;
 use App\SPC\Graduator\GraduatorValue;
 use App\SPC\Util\GraduatorUtil;
@@ -11,20 +12,20 @@ class GraduationPointCalculator implements IGraduationPointCalculator
 {
     /**
      * @param array $classResults
-     * @return int
+     * @return Points
      * @throws Exception
      */
-    public function getPoints(array $classResults): int
+    public function getPoints(array $classResults): Points
     {
-        $points = 0;
+        $points = new Points();
         foreach ($classResults as $classResult) {
             $result = GraduatorUtil::getResultFromPercent($classResult->eredmeny);
 
             if ($classResult->tipus === ClassLevel::EMELT) {
-                $points += GraduatorValue::ADVANCED_POINT;
+                $points->additional += GraduatorValue::ADVANCED_POINT;
             }
 
-            $points += $result;
+            $points->base += $result;
         }
 
         return $points;

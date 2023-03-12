@@ -31,7 +31,7 @@ class GraduationPointCalculatorTest extends TestCase
         $graduationCalc = new GraduationPointCalculator();
 
         $points = $graduationCalc->getPoints($items);
-        $this->assertEquals(210, $points);
+        $this->assertEquals(210, $points->base);
     }
 
     public function testGraduationCalculatorWithAdvancedExam()
@@ -57,6 +57,7 @@ class GraduationPointCalculatorTest extends TestCase
         $graduationCalc = new GraduationPointCalculator();
 
         $points = $graduationCalc->getPoints($items);
-        $this->assertEquals(260, $points);
+        $this->assertEquals(210, $points->base);
+        $this->assertEquals(50, $points->additional);
     }
 }
