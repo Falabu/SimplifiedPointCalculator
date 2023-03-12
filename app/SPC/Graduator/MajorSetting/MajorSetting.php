@@ -7,15 +7,21 @@ use App\SPC\Graduator\DataObject\MajorSetting as MajorSettingData;
 use App\SPC\Graduator\Enum\ClassLevel;
 use App\SPC\Graduator\Validator\HaveRequiredChosenClass;
 use App\SPC\Graduator\Validator\HaveRequiredClassValidator;
+use Exception;
 
 /**
  * These setting should come from other source (DB?)
  */
 class MajorSetting implements IMajorSetting
 {
-    public function get(string $major): ?MajorSettingData
+    /**
+     * @param string $major
+     * @return MajorSettingData
+     * @throws Exception
+     */
+    public function get(string $major): MajorSettingData
     {
-        return $this->settings()[$major] ?? null;
+        return $this->settings()[$major] ?? throw new Exception("No settings for $major");
     }
 
     /**

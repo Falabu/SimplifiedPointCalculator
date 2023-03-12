@@ -12,6 +12,7 @@ use App\SPC\Graduator\DataObject\ValidationResult;
 use App\SPC\Graduator\GraduationPointCalculator\IGraduationPointCalculator;
 use App\SPC\Graduator\MajorSetting\IMajorSetting;
 use App\SPC\Graduator\Validator\IValidatorsFactory;
+use Exception;
 use Generator;
 
 class Graduator implements IGraduator
@@ -27,6 +28,7 @@ class Graduator implements IGraduator
     /**
      * @param IGraduationsParser $graduationsParser
      * @return Generator
+     * @throws Exception
      */
     public function getEvaluations(IGraduationsParser $graduationsParser): Generator
     {
@@ -46,10 +48,6 @@ class Graduator implements IGraduator
             }
 
             $settings = $this->majorSetting->get($graduation->valasztottSzak->szak);
-            if (!$settings) {
-                continue;
-            }
-
             $allPoints = $this->getAllPoints($graduation, $settings);
 
             $scoreReached = $allPoints->total() >= $settings->requiredPoint;
