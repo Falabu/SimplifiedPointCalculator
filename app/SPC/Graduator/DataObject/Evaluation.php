@@ -8,7 +8,7 @@ class Evaluation extends DataObject
 {
     public bool $passed;
 
-    public string $messages;
+    public string $message;
 
     public Points $points;
     public Graduation $graduation;

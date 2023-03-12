@@ -30,7 +30,7 @@ class Graduator implements IGraduator
      */
     public function getEvaluations(IGraduationsParser $graduationsParser): Generator
     {
-        foreach ($graduationsParser->parse() as $index => $graduation) {
+        foreach ($graduationsParser->parse() as $graduation) {
             $evaluation = Evaluation::fromArray([
                 'passed' => false,
                 'graduation' => $graduation,
@@ -39,7 +39,7 @@ class Graduator implements IGraduator
 
             $validationResult = $this->validate($graduation);
             if (!$validationResult->validated) {
-                $evaluation->messages = $validationResult->errorMessages;
+                $evaluation->message = $validationResult->errorMessages;
 
                 yield $evaluation;
                 continue;
@@ -54,7 +54,7 @@ class Graduator implements IGraduator
 
             $scoreReached = $allPoints->total() >= $settings->requiredPoint;
             if (!$scoreReached) {
-                $evaluation->messages = 'A ponthatárt nem érte el';
+                $evaluation->message = 'Minimum score not reached!';
             }
 
             $evaluation->passed = $scoreReached;
