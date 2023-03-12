@@ -3,12 +3,11 @@
 namespace App\SPC\GraduationParser;
 
 use Generator;
-use SPC\Graduator\DataObject\Graduation;
 
 interface IGraduationsParser
 {
     /**
-     * @return Generator|array<Graduation>
+     * @return Generator
      */
-    public function parse(array $args): Generator;
+    public function parse(): Generator;
 }

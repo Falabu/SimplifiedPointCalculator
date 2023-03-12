@@ -2,14 +2,12 @@
 
 namespace App\SPC\Graduator\AdditionalPointCalculators;
 
-use App\SPC\Graduator\Enum\AdditionalPointCategory;
-
-class AdditionalPointCalculatorFactory
+class AdditionalPointCalculatorFactory implements IAdditionalPointCalculatorFactory
 {
-    public function create(AdditionalPointCategory $category): IAdditionalPointCalculator
+    public function create(string $category): IAdditionalPointCalculator
     {
         return match ($category) {
-            AdditionalPointCategory::NYELVVIZSGA => new LanguagePointCalculator(),
+            'Nyelvvizsga' => new LanguagePointCalculator(),
             default => new NullPointCalculator()
         };
     }

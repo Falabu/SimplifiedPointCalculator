@@ -6,7 +6,6 @@ use App\SPC\Graduator\AdditionalPointCalculators\AdditionalPointCalculatorFactor
 use App\SPC\Graduator\AdditionalPointCalculators\IAdditionalPointCalculator;
 use App\SPC\Graduator\AdditionalPointCalculators\LanguagePointCalculator;
 use App\SPC\Graduator\DataObject\LanguageResult;
-use App\SPC\Graduator\Enum\AdditionalPointCategory;
 use App\SPC\Graduator\GraduatorValue;
 use PHPUnit\Framework\TestCase;
 
@@ -16,7 +15,7 @@ class AdditionalPointCalculatorTest extends TestCase
     {
         $factory = new AdditionalPointCalculatorFactory();
 
-        $calculator = $factory->create(AdditionalPointCategory::NYELVVIZSGA);
+        $calculator = $factory->create('Nyelvvizsga');
 
         $this->assertInstanceOf(IAdditionalPointCalculator::class, $calculator);
     }

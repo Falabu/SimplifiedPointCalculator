@@ -13,5 +13,5 @@ interface IGraduationPointCalculator
      * @param Classes $classes
      * @return Points
      */
-    public function getPoints(array $classResults, Classes $classes): Points;
+    public function get(array $classResults, Classes $classes): Points;
 }

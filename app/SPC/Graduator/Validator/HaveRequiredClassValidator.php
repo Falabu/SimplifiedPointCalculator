@@ -32,7 +32,7 @@ class HaveRequiredClassValidator implements IValidator
 
     public function errorMessage(): string
     {
-        return 'not';
+        return "You must have $this->requiredClass with {$this->requiredLevel->value}";
     }
 
     private function getLevelWeight(ClassLevel $level): int

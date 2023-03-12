@@ -2,17 +2,20 @@
 
 namespace App\SPC\Graduator\Validator;
 
+use App\SPC\Graduator\DataObject\ClassResult;
 use App\SPC\Util\GraduatorUtil;
 use Exception;
 
 class MinPointPerClassValidator implements IValidator
 {
+    private string $invalidClass = '';
+
     public function __construct(private readonly int $minPoints)
     {
     }
 
     /**
-     * @param array $classResults
+     * @param array<ClassResult> $classResults
      * @return bool
      * @throws Exception
      */
@@ -21,6 +24,7 @@ class MinPointPerClassValidator implements IValidator
         foreach ($classResults as $classResult) {
             $result = GraduatorUtil::getResultFromPercent($classResult->eredmeny);
             if ($result < $this->minPoints) {
+                $this->invalidClass = $classResult->nev;
                 return false;
             }
         }
@@ -30,6 +34,6 @@ class MinPointPerClassValidator implements IValidator
 
     public function errorMessage(): string
     {
-        return 'not';
+        return "$this->invalidClass not reached $this->minPoints%!";
     }
 }

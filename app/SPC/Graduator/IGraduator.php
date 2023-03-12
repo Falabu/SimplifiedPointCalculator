@@ -1,20 +1,15 @@
 <?php
 
-namespace SPC\Graduator;
+namespace App\SPC\Graduator;
 
-use SPC\Graduator\Validator\IValidatorsFactory;
+use App\SPC\GraduationParser\IGraduationsParser;
+use Generator;
 
 interface IGraduator
 {
     /**
-     * @param array<IGraduationPointCalculator> $pointCalculators
-     * @param IValidatorsFactory $validatorFactory
-     */
-    public function __construct(array $pointCalculators, IValidatorsFactory $validatorFactory);
-
-    /**
      * @param IGraduationsParser $graduationsParser
-     * @return array<Evaluation>
+     * @return Generator
      */
-    public function getEvaluations(IGraduationsParser $graduationsParser): array;
+    public function getEvaluations(IGraduationsParser $graduationsParser): Generator;
 }

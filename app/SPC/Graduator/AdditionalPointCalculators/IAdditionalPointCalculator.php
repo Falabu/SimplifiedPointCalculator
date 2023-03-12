@@ -9,7 +9,7 @@ interface IAdditionalPointCalculator
 {
     /**
      * @param array<DataObject> $additionalPoints
-     * @return int
+     * @return Points
      */
     public function getPoints(array $additionalPoints): Points;
 }

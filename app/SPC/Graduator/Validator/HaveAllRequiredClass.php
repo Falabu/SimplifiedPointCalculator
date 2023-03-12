@@ -4,9 +4,9 @@ namespace App\SPC\Graduator\Validator;
 
 use App\SPC\Graduator\DataObject\ClassResult;
 
-class HaveRequiredChosenClass implements IValidator
+class HaveAllRequiredClass implements IValidator
 {
-    public function __construct(private readonly array $validClasses)
+    public function __construct(private readonly array $requiredClasses)
     {
     }
 
@@ -18,13 +18,12 @@ class HaveRequiredChosenClass implements IValidator
     {
         $classes = array_map(fn(ClassResult $classResult) => $classResult->nev, $classResults);
 
-        $intersect = array_intersect($this->validClasses, $classes);
-        return count($intersect) > 0;
+        return count(array_diff($this->requiredClasses, $classes)) === 0;
     }
 
     public function errorMessage(): string
     {
-        $imploded = implode(', ', $this->validClasses);
-        return "You need one of this classes: $imploded";
+        $imploded = implode(', ', $this->requiredClasses);
+        return "You need all required classes: $imploded";
     }
 }

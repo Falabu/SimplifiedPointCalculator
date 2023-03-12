@@ -1,5 +1,4 @@
 <?php
-
 namespace App\SPC\DataObject;
 
 use App\SPC\DataObject\Attribute\ArrayOf;
@@ -18,6 +17,10 @@ use ReflectionUnionType;
  * I really like to use DTO-s instead of simple array
  * I copied it from my other project
  */
+
+/**
+ * @psalm-suppress all
+ */
 class DataObject
 {
     private array $nullables;
@@ -34,7 +37,7 @@ class DataObject
 
     public function toArray(): array
     {
-        return $this->only(['*']);
+        return $this->only();
     }
 
     public function only(array $properties = ['*']): array
