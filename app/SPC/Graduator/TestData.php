@@ -7,8 +7,6 @@ use App\SPC\Graduator\DataObject\Points;
 
 class TestData
 {
-
-
     public static array $graduations = [
         [
             'valasztott-szak' => [
