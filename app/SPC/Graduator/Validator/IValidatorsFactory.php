@@ -1,6 +1,6 @@
 <?php
 
-namespace SPC\Graduator\Validator;
+namespace App\SPC\Graduator\Validator;
 
 interface IValidatorsFactory
 {

@@ -1,13 +1,35 @@
 <?php
 
-namespace SPC\Graduator\Validator;
+namespace App\SPC\Graduator\Validator;
 
-use SPC\Graduator\DataObject\Graduation;
+use App\SPC\Util\GraduatorUtil;
+use Exception;
 
 class MinPointPerClassValidator implements IValidator
 {
-    public function validate(Graduation $graduation): bool
+    public function __construct(private readonly int $minPoints)
     {
-        // TODO: Implement validate() method.
+    }
+
+    /**
+     * @param array $classResults
+     * @return bool
+     * @throws Exception
+     */
+    public function validate(array $classResults): bool
+    {
+        foreach ($classResults as $classResult) {
+            $result = GraduatorUtil::getResultFromPercent($classResult->eredmeny);
+            if ($result < $this->minPoints) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public function errorMessage(): string
+    {
+        return 'not';
     }
 }

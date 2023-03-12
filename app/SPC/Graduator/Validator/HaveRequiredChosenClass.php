@@ -1,13 +1,30 @@
 <?php
 
-namespace SPC\Graduator\Validator;
+namespace App\SPC\Graduator\Validator;
 
-use SPC\Graduator\DataObject\Graduation;
+use App\SPC\Graduator\DataObject\ClassResult;
+use phpDocumentor\Reflection\Types\This;
 
 class HaveRequiredChosenClass implements IValidator
 {
-    public function validate(Graduation $graduation): bool
+    public function __construct(private readonly array $validClasses)
     {
-        // TODO: Implement validate() method.
+    }
+
+    /**
+     * @param array<ClassResult> $classResults
+     * @return bool
+     */
+    public function validate(array $classResults): bool
+    {
+        $classes = array_map(fn(ClassResult $classResult) => $classResult->nev, $classResults);
+
+        $intersect = array_intersect($this->validClasses, $classes);
+        return count($intersect) > 0;
+    }
+
+    public function errorMessage(): string
+    {
+        return 'not';
     }
 }

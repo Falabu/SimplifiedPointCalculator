@@ -1,10 +1,16 @@
 <?php
 
-namespace SPC\Graduator\Validator;
+namespace App\SPC\Graduator\Validator;
 
-use SPC\Graduator\DataObject\Graduation;
+use App\SPC\Graduator\DataObject\ClassResult;
 
 interface IValidator
 {
-    public function validate(Graduation $graduation): bool;
+    /**
+     * @param array<ClassResult> $classResults
+     * @return bool
+     */
+    public function validate(array $classResults): bool;
+
+    public function errorMessage(): string;
 }
