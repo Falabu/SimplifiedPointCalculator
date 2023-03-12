@@ -4,6 +4,7 @@ namespace Tests\Unit\MajorSetting;
 
 use App\SPC\Graduator\DataObject\MajorSetting as MajorSettingData;
 use App\SPC\Graduator\MajorSetting\MajorSetting;
+use Exception;
 use PHPUnit\Framework\TestCase;
 
 class MajorSettingTest extends TestCase
@@ -16,11 +17,11 @@ class MajorSettingTest extends TestCase
         $this->assertInstanceOf(MajorSettingData::class, $setting);
     }
 
-    public function testMajorSettingGivesNullWhenNotFound()
+    public function testMajorSettingThrowsExceptionWhenNotFound()
     {
         $majorSetting = new MajorSetting();
-        $setting = $majorSetting->get('Cicafüst');
 
-        $this->assertEquals(null, $setting);
+        $this->expectException(Exception::class);
+        $majorSetting->get('Cicafüst');
     }
 }
