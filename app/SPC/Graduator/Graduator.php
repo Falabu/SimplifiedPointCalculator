@@ -39,7 +39,7 @@ class Graduator implements IGraduator
 
             $validationResult = $this->validate($graduation);
             if (!$validationResult->validated) {
-                $evaluation->message = $validationResult->errorMessages;
+                $evaluation->message = $validationResult->errorMessage;
 
                 yield $evaluation;
                 continue;
@@ -114,7 +114,7 @@ class Graduator implements IGraduator
 
             $validationResult->validated = $validator->validate($graduation->erettsegiEredmenyek);
             if (!$validationResult->validated) {
-                $validationResult->errorMessages = $validator->errorMessage();
+                $validationResult->errorMessage = $validator->errorMessage();
             }
         }
 

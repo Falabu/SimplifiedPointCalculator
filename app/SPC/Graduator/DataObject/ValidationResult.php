@@ -7,5 +7,5 @@ use App\SPC\DataObject\DataObject;
 class ValidationResult extends DataObject
 {
     public bool $validated;
-    public string $errorMessages;
+    public string $errorMessage;
 }
