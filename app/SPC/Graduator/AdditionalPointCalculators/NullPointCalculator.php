@@ -3,6 +3,7 @@
 namespace App\SPC\Graduator\AdditionalPointCalculators;
 
 use App\SPC\Graduator\DataObject\LanguageResult;
+use App\SPC\Graduator\DataObject\Points;
 
 class NullPointCalculator implements IAdditionalPointCalculator
 {
@@ -10,8 +11,8 @@ class NullPointCalculator implements IAdditionalPointCalculator
      * @param array<LanguageResult> $additionalPoints
      * @return int
      */
-    public function getPoints(array $additionalPoints): int
+    public function getPoints(array $additionalPoints): Points
     {
-        return 0;
+        return Points::fromArray([]);
     }
 }

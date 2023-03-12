@@ -39,7 +39,7 @@ class AdditionalPointCalculatorTest extends TestCase
         $calculator = new LanguagePointCalculator();
 
         $points = $calculator->getPoints($items);
-        $this->assertEquals(GraduatorValue::C1_POINT, $points);
+        $this->assertEquals(GraduatorValue::C1_POINT, $points->additional);
     }
 
     public function testLanguageCalculatorForMoreLanguage()
@@ -60,7 +60,7 @@ class AdditionalPointCalculatorTest extends TestCase
         $calculator = new LanguagePointCalculator();
 
         $points = $calculator->getPoints($items);
-        $this->assertEquals(68, $points);
+        $this->assertEquals(68, $points->additional);
     }
 
     public function testLanguageCalculatorForMoreLanguageWithOneLanguageWithDifferentExamLevel()
@@ -86,6 +86,6 @@ class AdditionalPointCalculatorTest extends TestCase
         $calculator = new LanguagePointCalculator();
 
         $points = $calculator->getPoints($items);
-        $this->assertEquals(80, $points);
+        $this->assertEquals(80, $points->additional);
     }
 }

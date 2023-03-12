@@ -3,6 +3,7 @@
 namespace App\SPC\Graduator\AdditionalPointCalculators;
 
 use App\SPC\Graduator\DataObject\LanguageResult;
+use App\SPC\Graduator\DataObject\Points;
 use App\SPC\Graduator\Enum\LanguageLevel;
 use App\SPC\Graduator\GraduatorValue;
 use PHPUnit\Logging\Exception;
@@ -11,9 +12,9 @@ class LanguagePointCalculator implements IAdditionalPointCalculator
 {
     /**
      * @param array<LanguageResult> $additionalPoints
-     * @return int
+     * @return Points
      */
-    public function getPoints(array $additionalPoints): int
+    public function getPoints(array $additionalPoints): Points
     {
         $examToWeight = [];
         foreach ($additionalPoints as $additionalPoint) {
@@ -30,8 +31,13 @@ class LanguagePointCalculator implements IAdditionalPointCalculator
             $examToWeight[$additionalPoint->nyelv] = $additionalPoint->tipus;
         }
 
-        return array_reduce($examToWeight,
+        $points = array_reduce(
+            $examToWeight,
             fn(int $sum, LanguageLevel $level) => $sum + $this->getLevelPoint($level), 0);
+
+        return Points::fromArray([
+            'additional' => $points
+        ]);
     }
 
     private function getLevelWeight(LanguageLevel $level): int
